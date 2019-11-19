@@ -1,0 +1,47 @@
+# Based on 'Kallithea Documentation - Setup' sample.
+#   https://kallithea.readthedocs.io/en/latest/setup.html
+
+# This file removes the SSL settings and GIST alias settings from the sample.
+# Replace it with what you need.
+
+upstream kallithea {
+    server 127.0.0.1:5000;
+}
+
+server {
+    listen          80;
+    access_log      /kallithea/logs/kallithea.access.log;
+    error_log       /kallithea/logs/kallithea.error.log;
+
+    ## uncomment root directive if you want to serve static files by nginx
+    ## requires static_files = false in .ini file
+    #root /srv/kallithea/kallithea/kallithea/public;
+
+    proxy_redirect              off;
+    proxy_set_header            Host $host;
+    ## needed for container auth
+    #proxy_set_header            REMOTE_USER $remote_user;
+    #proxy_set_header            X-Forwarded-User $remote_user;
+    proxy_set_header            X-Url-Scheme $scheme;
+    proxy_set_header            X-Host $http_host;
+    proxy_set_header            X-Real-IP $remote_addr;
+    proxy_set_header            X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header            Proxy-host $proxy_host;
+    proxy_buffering             off;
+    proxy_connect_timeout       7200;
+    proxy_send_timeout          7200;
+    proxy_read_timeout          7200;
+    proxy_buffers               8 32k;
+    client_max_body_size        1024m;
+    client_body_buffer_size     128k;
+    large_client_header_buffers 8 64k;
+
+    location / {
+         try_files $uri @kallithea;
+    }
+
+    location @kallithea {
+        proxy_pass http://kallithea;
+        include /etc/nginx/proxy_params;
+    }
+}
