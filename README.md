@@ -1,12 +1,12 @@
 # Kallithea Docker Image
 
 [This](https://hub.docker.com/r/toras9000/kallithea) is a docker image of the source code management system [kallithea](https://kallithea-scm.org/).  
-It is affected by the specifications of [atnurgaliev/kallithea](https://hub.docker.com/r/atnurgaliev/kallithea)'s image and is compatible with version 0.4.  
+It is affected by the specifications of [atnurgaliev/kallithea](https://hub.docker.com/r/atnurgaliev/kallithea)'s image and is compatible with version 0.4 and lator.  
 
 ## Tags
 
 - latest ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/master/Dockerfile))
-
+- 0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.5.0/Dockerfile))
 - 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.4.1/Dockerfile))
 
 ## Usage
@@ -16,11 +16,18 @@ The container provides services on port 80.
     $ docker run -d -p 8000:80 toras9000/kallithea
 
 ## Data location
-Assume that the following locations in the container are persisted:
+The storage location of data in the container.  
+When changing the version, pay attention to the handling of persistent data.  
+See [Upgrading Kallithea](https://kallithea.readthedocs.io/en/latest/upgrade.html) for the steps required to change the version.  
 
-- `/kallithea/config` - contains configuration file (`kallithea.ini`).
-- `/kallithea/repos` - contains repositories.
-- `/kallithea/logs` - contains log files.
+- `/kallithea/config`
+contains configuration file (`kallithea.ini`).
+
+- `/kallithea/repos`
+contains repositories.
+
+- `/kallithea/logs`
+contains log files.
 
 ## Enviroment variables
 If kallithea.ini does not exist in the container, it is considered the first time and the initialization process is executed.  
