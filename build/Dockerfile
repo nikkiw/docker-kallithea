@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Package version when installing by pip. ex.) 0.5.0
-ARG KALLITHEA_VER=
+ARG KALLITHEA_VER=0.5.0
 
 # Pass the path in advance to the directory where kallithea is installed.
 ENV PATH $PATH:/home/kallithea/.local/bin
