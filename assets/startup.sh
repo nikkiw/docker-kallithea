@@ -13,7 +13,6 @@ if [ ! -e $KALLITHEA_INI ]; then
     # create config file
     echo "Creating configuration file..."
     kallithea-cli config-create $KALLITHEA_INI
-    cp $KALLITHEA_INI
 
     # replace external database
     if [ -n "$KALLITHEA_EXTERNAL_DB" ]; then
