@@ -5,9 +5,9 @@ It is affected by the specifications of [atnurgaliev/kallithea](https://hub.dock
 
 ## Tags
 
-- latest ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/master/Dockerfile))
-- 0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.5.0/Dockerfile))
-- 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.4.1/Dockerfile))
+- latest ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/master/build/Dockerfile))
+- 0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.5.0/build/Dockerfile))
+- 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.4.1/build/Dockerfile))
 
 ## Usage
 If you run for trial.  
