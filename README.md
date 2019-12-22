@@ -10,26 +10,31 @@ It is affected by the specifications of [atnurgaliev/kallithea](https://hub.dock
 - 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.4.1/build/Dockerfile))
 
 ## Usage
+
 If you run for trial.  
 The container provides services on port 80.  
 
-    $ docker run -d -p 8000:80 toras9000/kallithea
+```bash
+$ docker run -d -p 8000:80 toras9000/kallithea
+```
 
 ## Data location
+
 The storage location of data in the container.  
 When changing the version, pay attention to the handling of persistent data.  
 See [Upgrading Kallithea](https://kallithea.readthedocs.io/en/latest/upgrade.html) for the steps required to change the version.  
 
-- `/kallithea/config`
-contains configuration file (`kallithea.ini`).
+- `/kallithea/config`  
+contains configuration file (`kallithea.ini`).  
 
-- `/kallithea/repos`
-contains repositories.
+- `/kallithea/repos`  
+contains repositories.  
 
-- `/kallithea/logs`
-contains log files.
+- `/kallithea/logs`  
+contains log files.  
 
 ## Enviroment variables
+
 If kallithea.ini does not exist in the container, it is considered the first time and the initialization process is executed.  
 The following are variables used at initialization.  
 
@@ -45,7 +50,7 @@ Administrator account e-mail (default: `admin@example.com`)
 - `KALLITHEA_LANG`  
 Specifies the default language for when the display language cannot be determined automatically.  
 It is determined by browser settings if possible. See [i18n support](https://kallithea.readthedocs.io/en/latest/setup.html#internationalization-i18n-support).  
-(empty by default, can be one of `be bg cs da de el es fr hu ja nb_NO nl_BE pl pt_BR ru sk tr uk zh_CN zh_TW`)  
+(empty by default, meaning english. can be one of `be bg cs da de el es fr hu ja nb_NO nl_BE pl pt_BR ru sk tr uk zh_CN zh_TW`)  
 
 The following are the variables that are used every time it starts.  
 
@@ -65,23 +70,25 @@ A rough patch to the display template. (empty by default, no patch.)
 Sort direction when default sort column is specified.  
 A rough patch to the display template. ("asc" by default)  
 
-
 When executing with persistence, the following two steps are assumed as an example.  
 First, run with database initialization.  
 
-
-    $ docker run -d -p 8000:80 \
-                 -e KALLITHEA_ADMIN_USER=admin \
-                 -e KALLITHEA_ADMIN_PASS=secret \
-                 -v /opt/kallithea/config:/kallithea/config \
-                 -v /opt/kallithea/repos:/kallithea/repos \
-                 -v /opt/kallithea/logs:/kallithea/logs \
-                 toras9000/kallithea
+```bash
+$ docker run -d -p 8000:80 \
+             -e KALLITHEA_ADMIN_USER=admin \
+             -e KALLITHEA_ADMIN_PASS=secret \
+             -v /opt/kallithea/config:/kallithea/config \
+             -v /opt/kallithea/repos:/kallithea/repos \
+             -v /opt/kallithea/logs:/kallithea/logs \
+             toras9000/kallithea
+```
 
 After the initialization is completed, omit unnecessary specifications for the second time and later.  
 
-    $ docker run -d -p 8000:80 \
-                 -v /opt/kallithea/config:/kallithea/config \
-                 -v /opt/kallithea/repos:/kallithea/repos \
-                 -v /opt/kallithea/logs:/kallithea/logs \
-                 toras9000/kallithea
+```bash
+$ docker run -d -p 8000:80 \
+             -v /opt/kallithea/config:/kallithea/config \
+             -v /opt/kallithea/repos:/kallithea/repos \
+             -v /opt/kallithea/logs:/kallithea/logs \
+             toras9000/kallithea
+```
