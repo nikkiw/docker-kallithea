@@ -16,6 +16,7 @@ RUN apt-get update \
                     python-pip python-dev npm libpq-dev libmysqlclient-dev \
  && : Install kallithea and optional packages.\
  && pip install --no-cache-dir kallithea${KALLITHEA_VER:+==$KALLITHEA_VER} \
+ && pip install --no-cache-dir beaker==1.11.0 \
  && pip install --no-cache-dir psycopg2 \
  && pip install --no-cache-dir mysqlclient \
  && : Preparing the front-end files. \
