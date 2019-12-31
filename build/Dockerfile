@@ -9,11 +9,11 @@ ARG KALLITHEA_VER=
 RUN apt-get update \
  && : This is what to keep installed in the image. \
  && apt-get install -y --no-install-recommends \
-                    dumb-init nginx locales mercurial git python \
+                    dumb-init nginx locales mercurial git python python-setuptools \
  && : This is only needed for kallithea installation. \
  && apt-get install -y --no-install-recommends \
                     build-essential libffi-dev \
-                    python-pip python-setuptools python-dev npm libpq-dev libmysqlclient-dev \
+                    python-pip python-dev npm libpq-dev libmysqlclient-dev \
  && : Install kallithea and optional packages.\
  && pip install --no-cache-dir kallithea${KALLITHEA_VER:+==$KALLITHEA_VER} \
  && pip install --no-cache-dir psycopg2 \
