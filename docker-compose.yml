@@ -2,6 +2,7 @@ version: '2'
 services:
   db:
     image: postgres:12
+    restart: always
     volumes:
       - ./volumes/db:/var/lib/postgresql/data
     environment:
@@ -11,18 +12,20 @@ services:
 
   app:
     image: toras9000/kallithea
+    build: ./build
+    restart: always
     links:
       - db:db-container
     ports:
       - "8000:80"
     volumes:
       - ./volumes/app/config:/kallithea/config
-      - ./volumes/app/repo:/kallithea/repos
+      - ./volumes/app/repos:/kallithea/repos
       - ./volumes/app/logs:/kallithea/logs
     environment:
       - KALLITHEA_EXTERNAL_DB=postgres://kallithea_user:kallithea_secret@db-container/kallithea_store
       - KALLITHEA_ADMIN_USER=admin
-      - KALLITHEA_ADMIN_PASS=admin
+      - KALLITHEA_ADMIN_PASS=admin123
       - KALLITHEA_ADMIN_MAIL=admin@example.com
       - KALLITHEA_LANG=ja
       - KALLITHEA_LOCALE=ja_JP.UTF-8
