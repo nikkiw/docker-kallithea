@@ -76,6 +76,11 @@ A rough patch to the display template. (empty by default, no patch.)
 Sort direction when default sort column is specified.  
 A rough patch to the display template. ("asc" by default)  
 
+- `KALLITHEA_FIX_PERMISSION`  
+If set to TRUE, will overwrite the file permissions of the repository and configuration files
+. (TRUE by default)  
+
+
 When executing with persistence, the following two steps are assumed as an example.  
 First, run with database initialization.  
 

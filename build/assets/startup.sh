@@ -6,14 +6,26 @@ locale-gen --lang ${LANG}
 update-locale LANG=${LANG}
 export LANG
 
+# fix permission
+KALLITHEA_FIX_PERMISSION=$(echo ${KALLITHEA_FIX_PERMISSION:-TRUE} | tr [:lower:] [:upper:])
+if [ "$KALLITHEA_FIX_PERMISSION" = "TRUE"  ]; then
+    echo "Fix permissions ..."
+    chown -R kallithea:kallithea /kallithea/config
+    chown -R kallithea:kallithea /kallithea/repos
+    find /kallithea/config -type d -exec chmod u+wrx {} \;
+    find /kallithea/config -type f -exec chmod u+wr  {} \;
+    find /kallithea/repos  -type d -exec chmod u+wrx {} \;
+    find /kallithea/repos  -type f -exec chmod u+wr  {} \;
+fi
+
 # settings file path
 KALLITHEA_INI=/kallithea/config/kallithea.ini
 
 # perform initialization when there is no settings file
-if [ ! -e $KALLITHEA_INI ]; then
+if [ ! -e "$KALLITHEA_INI" ]; then
     # create config file
     echo "Creating configuration file..."
-    kallithea-cli config-create $KALLITHEA_INI
+    gosu kallithea:kallithea kallithea-cli config-create $KALLITHEA_INI
 
     # replace external database
     if [ -n "$KALLITHEA_EXTERNAL_DB" ]; then
@@ -33,7 +45,7 @@ if [ ! -e $KALLITHEA_INI ]; then
 
     # initialize database
     echo "Creating database..."
-    kallithea-cli db-create -c $KALLITHEA_INI \
+    gosu kallithea:kallithea kallithea-cli db-create -c $KALLITHEA_INI \
         --user ${KALLITHEA_ADMIN_USER:-"admin"} \
         --password ${KALLITHEA_ADMIN_PASS:-"admin"} \
         --email ${KALLITHEA_ADMIN_MAIL:-"admin@example.com"} \
@@ -45,7 +57,7 @@ fi
 if [ -n "$KALLITHEA_REPOSORT_IDX" ]; then
     KRS_IDX=$KALLITHEA_REPOSORT_IDX
     KRS_ODR=${KALLITHEA_REPOSORT_ORDER:-"asc"}
-    PATCH_FILE=/usr/local/lib/python2.7/dist-packages/kallithea/templates/index_base.html
+    PATCH_FILE=/home/kallithea/.local/lib/python2.7/site-packages/kallithea/templates/index_base.html
     sed -ri "s/^                order: \\[\\[1, \"asc\"\\]\\],\$/                order: [[${KRS_IDX}, \"${KRS_ODR}\"]],/1" $PATCH_FILE
 fi
 
@@ -53,4 +65,4 @@ echo "Start nginx reverse proxy ..."
 nginx -g "daemon off;" &
 
 echo "Start kallithea ..."
-gearbox serve -c $KALLITHEA_INI
+gosu kallithea:kallithea gearbox serve -c $KALLITHEA_INI

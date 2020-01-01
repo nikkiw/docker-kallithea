@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=kallithea_store
 
   app:
-    image: toras9000/kallithea
+    image: toras9000/kallithea:gu
     build: ./build
     restart: always
     links:
@@ -31,3 +31,4 @@ services:
       - KALLITHEA_LOCALE=ja_JP.UTF-8
       - KALLITHEA_REPOSORT_IDX=4
       - KALLITHEA_REPOSORT_ORDER=desc
+      - KALLITHEA_FIX_PERMISSION=true
