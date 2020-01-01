@@ -6,8 +6,14 @@ It is affected by the specifications of [atnurgaliev/kallithea](https://hub.dock
 ## Tags
 
 - latest ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/master/build/Dockerfile))
-- 0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.5.0/build/Dockerfile))
-- 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/v0.4.1/build/Dockerfile))
+- 0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/tag_0.5.0/build/Dockerfile))
+- 0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/tag_0.4.1/build/Dockerfile))
+
+Execute by a non-root user.
+
+- gu ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/tag_gu/build/Dockerfile))
+- gu-0.5.0 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/tag_gu-0.5.0/build/Dockerfile))
+- gu-0.4.1 ([Dockerfile](https://github.com/toras9000/docker-kallithea/blob/tag_gu-0.4.1/build/Dockerfile))
 
 ## Usage
 
